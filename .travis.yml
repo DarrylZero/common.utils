@@ -1,0 +1,34 @@
+language: java
+
+before_install:
+ - chmod +x gradlew
+
+install: gradle assemble
+
+build: gradle build
+
+jdk:
+  - oraclejdk8
+
+branches:
+  only:
+  - master
+  - development
+  - /^feature.*$/
+  - /^release.*$/
+
+
+deploy:
+  - provider: script
+    script: sh deploy.sh $repo_user $repo_password
+
+    on:
+      branch: release
+
+#cache:
+#  directories:
+#    - '$HOME/.m2/repository'
+#    - '$HOME/.sonar/cache'
+#    - '$HOME/.gradle'
+#    - '.gradle'
+
