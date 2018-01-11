@@ -344,20 +344,20 @@ public class ClassMethodTable {
 
                 case CCIC.CONSTANT_METHODREF: {
                     c[i] = new CONSTANT_METHODREF_Info(tag, data.readUnsignedShort(), data.readUnsignedShort());
-                    // u2 class_index; u2 name_and_type_index;
+                    /* u2 class_index; u2 name_and_type_index */
                     break;
                 }
 
                 case CCIC.CONSTANT_INTERFACEMETHODREF: {
                     c[i] = new CONSTANT_INTERFACEMETHODREF_Info(tag, data.readUnsignedShort(),
                             data.readUnsignedShort());
-                    // u2 class_index; u2 name_and_type_index;
+                    /*u2 class_index; u2 name_and_type_index;*/
                     break;
                 }
 
                 case CCIC.CONSTANT_STRING: {
                     c[i] = new Constant_String_Info(tag, data.readUnsignedShort());
-                    // u2 string_index;
+                    /* u2 string_index */
                     break;
                 }
 

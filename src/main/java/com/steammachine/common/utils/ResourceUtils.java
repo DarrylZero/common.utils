@@ -1,5 +1,8 @@
 package com.steammachine.common.utils;
 
+import com.steammachine.common.apilevel.Api;
+import com.steammachine.common.apilevel.State;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +19,7 @@ import java.util.Properties;
  *
  * @author Vladimir Bogodukhov
  */
+@Api(State.EXPERIMENT)
 public class ResourceUtils {
 
     private ResourceUtils() {

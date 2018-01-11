@@ -1,5 +1,7 @@
 package com.steammachine.common.validation;
 
+import com.steammachine.common.apilevel.Api;
+import com.steammachine.common.apilevel.State;
 import com.steammachine.common.utils.commonutils.CommonUtils;
 
 import java.io.File;
@@ -13,9 +15,10 @@ import java.util.Map;
  *
  * @author Vladimir Bogodukhov
  *
- * {@link Validation}
- * Validation
+ * {@link com.steammachine.common.validation.Validation}
+ * com.steammachine.common.validation.Validation
  **/
+@Api(State.INCUBATING)
 public class Validation {
 
     private Validation() {

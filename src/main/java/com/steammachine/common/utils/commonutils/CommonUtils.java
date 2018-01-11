@@ -1,5 +1,8 @@
 package com.steammachine.common.utils.commonutils;
 
+import com.steammachine.common.apilevel.Api;
+import com.steammachine.common.apilevel.State;
+
 import java.io.*;
 import java.math.BigInteger;
 import java.net.URI;
@@ -23,6 +26,7 @@ import java.util.zip.ZipFile;
  * @author Vladimir Bogodukhov
  */
 @SuppressWarnings("ALL")
+@Api(State.INCUBATING)
 public final class CommonUtils {
 
     private static final String UTF_8 = "utf-8";

@@ -1,11 +1,15 @@
 package com.steammachine.common.utils.metodsutils;
 
+import com.steammachine.common.apilevel.Api;
+import com.steammachine.common.apilevel.State;
+
 /**
  * Вспомогательный интерфейс вызова методов
  * Created 31.12.2017 18:10
  *
  * @author Vladimir Bogodukhov
  **/
+@Api(State.MAINTAINED)
 public interface MethodCaller {
 
     /**

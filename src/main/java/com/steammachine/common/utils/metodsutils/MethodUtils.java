@@ -16,7 +16,7 @@ import java.util.function.Predicate;
  *
  * @author Vladimir Bogodukhov
  */
-@Api(State.EXPERIMENT)
+@Api(State.MAINTAINED)
 public class MethodUtils {
 
     private static final String CLASS_IS_NULL = "class is null";

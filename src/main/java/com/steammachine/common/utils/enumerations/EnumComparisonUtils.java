@@ -1,5 +1,7 @@
 package com.steammachine.common.utils.enumerations;
 
+import com.steammachine.common.apilevel.Api;
+import com.steammachine.common.apilevel.State;
 import com.steammachine.common.lazyeval.LazyEval;
 
 import java.util.*;
@@ -14,6 +16,7 @@ import java.util.stream.Stream;
  * Created 31.12.2017 18:10
  * @author Vladimir Bogodukhov
  */
+@Api(State.EXPERIMENT)
 public class EnumComparisonUtils {
 
     private static final String ENUMERATIONS_ARE_NOT_EQUAL = "enumerations are not equal";
