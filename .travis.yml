@@ -19,6 +19,7 @@ branches:
 
 
 deploy:
+  skip_cleanup: true
   - provider: script
     script: sh deploy.sh $repo_user $repo_password
 

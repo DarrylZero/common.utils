@@ -121,3 +121,10 @@ task findbreaks(type: FileModifier) {
         }
     }
 }
+
+task tagCommandLine {
+    doLast {
+        println "git checkout release$deploy.version"
+        println "git tag -a v$deploy.version " + " -m \"version $deploy.version\""
+    }
+}
