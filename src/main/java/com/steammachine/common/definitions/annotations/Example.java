@@ -9,10 +9,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Anotation - marker. Used for marking backward capability class members.
- * Usually these are only  stub, or deprecated class members.
- *
- *  The annotation is seen only in sourcecode
+ * Anotation - marker which
+ * The annotation is seen only in sourcecode
  * <p>
  *
  * @author Vladimir Bogodukhov
@@ -24,10 +22,9 @@ import java.lang.annotation.Target;
 })
 @Retention(RetentionPolicy.SOURCE)
 @Api(State.MAINTAINED)
-public @interface BackwardCompatibility {
+public @interface Example {
 
     /**
-     *
      * @return - Additional descriptions.
      */
     String[] value() default {};

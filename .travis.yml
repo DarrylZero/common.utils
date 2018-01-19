@@ -24,11 +24,3 @@ deploy:
 
     on:
       branch: release
-
-#cache:
-#  directories:
-#    - '$HOME/.m2/repository'
-#    - '$HOME/.sonar/cache'
-#    - '$HOME/.gradle'
-#    - '.gradle'
-
