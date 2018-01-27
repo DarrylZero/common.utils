@@ -45,15 +45,15 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
-//    compile 'log4j:log4j:1.2.17'
-//    compile 'org.mockito:mockito-all:1.9.5'
 
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.0.0-M6'
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.0-M6'
     testCompile 'junit:junit:4.12'
-    testCompile 'org.junit.jupiter:junit-jupiter-engine:5.0.0-M6'
-    testCompile 'org.junit.vintage:junit-vintage-engine:4.12.0-M6'
-    testCompile 'org.junit.platform:junit-platform-launcher:1.0.0-M6'
+
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.0.0'
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.0.0'
+    testCompile 'org.junit.jupiter:junit-jupiter-engine:5.0.0'
+    testCompile 'org.junit.vintage:junit-vintage-engine:4.12.0'
+    testCompile 'org.junit.platform:junit-platform-launcher:1.0.0'
+    testCompile 'com.steammachine.org:junit5.extensions:0.9.1'
 }
 
 junitPlatform {
