@@ -26,7 +26,7 @@ public class MapBuilder<K, V> {
         this.mapSupplier = Objects.requireNonNull(mapSupplier);
     }
 
-    public MapBuilder put(K k, V v) {
+    public MapBuilder<K, V> put(K k, V v) {
         requireMap().put(k, v);
         return this;
     }
