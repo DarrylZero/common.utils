@@ -9,14 +9,18 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Anotation - marker which
- * The annotation is seen only in sourcecode
+ * Anotation - marker which tells that the annotate code can be used as example
+ * The annotation is seen only in sourcecode.
  * <p>
  *
  * @author Vladimir Bogodukhov
  */
 
 @Target({
+        ElementType.LOCAL_VARIABLE,
+        ElementType.TYPE,
+        ElementType.PARAMETER,
+        ElementType.CONSTRUCTOR,
         ElementType.FIELD,
         ElementType.METHOD
 })
