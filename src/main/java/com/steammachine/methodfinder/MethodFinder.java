@@ -64,12 +64,12 @@ public class MethodFinder {
         Stream<StackTraceElement> stackTraceStream = Stream.of(Thread.currentThread().getStackTrace());
         return stackTraceStream.
                 map(Context::new). /* Обернули контекстом */
-                map((c) -> c.updateClass(getClass(c.element().getClassName()))). /* обновили класс контекста */
-                filter((c) -> classCriteria.test(c.clazz())). /* отфильтровали класс */
-                map((c) -> c.updateMethod(getMethod(c.clazz(), c.element().getMethodName(), methods, c.element().getLineNumber()))).
+                map(c -> c.updateClass(getClass(c.element().getClassName()))). /* обновили класс контекста */
+                filter(c -> classCriteria.test(c.clazz())). /* отфильтровали класс */
+                map(c -> c.updateMethod(getMethod(c.clazz(), c.element().getMethodName(), methods, c.element().getLineNumber()))).
                 filter(Context::everithingIsSet).
                 map(Context::checkEverithingIsSet). /* Тут проверим, что установлено все что нужно. */
-                filter((c) -> methodCriteria.test(c.method())).
+                filter(c -> methodCriteria.test(c.method())).
                 map(Context::method).
                 findFirst().orElse(null);
     }
@@ -93,7 +93,7 @@ public class MethodFinder {
         }
 
         List<Method> methods = Stream.of(clazz.getDeclaredMethods()).
-                filter((m) -> methodName.equals(m.getName())).collect(toList());
+                filter(m -> methodName.equals(m.getName())).collect(toList());
         if (methods.isEmpty()) {
             /* метод по имени не найден */
             return null;
@@ -101,8 +101,8 @@ public class MethodFinder {
 
         Map.Entry<String, ClassMethodTable.SourceCodePosition> entry = methodsMap.value().get(clazz).entrySet().stream().
                 // filter((en) -> methodName.equals(en.getKey())).
-                        filter((en) -> en.getValue().hasPosition()).
-                        filter((en) -> en.getValue().inlinerange(position)).
+                        filter(en -> en.getValue().hasPosition()).
+                        filter(en -> en.getValue().inlinerange(position)).
                         findFirst().orElse(null);
 
         if (entry == null) {
@@ -110,9 +110,8 @@ public class MethodFinder {
             return null;
         }
 
-        Method method = methods.stream().filter((m) -> ClassMethodTable.methodSignature(m).equals(entry.getKey())).
+        return methods.stream().filter(m -> ClassMethodTable.methodSignature(m).equals(entry.getKey())).
                 findFirst().orElse(null);
-        return method;
     }
 
 

@@ -137,6 +137,9 @@ public class ClassMethodTable {
      */
     @SuppressWarnings("WeakerAccess")
     private static class CCIC {
+        private CCIC() {
+            /* by design */
+        }
         public static final int CLASS_MAGIC_NUMBER = 0xCAFEBABE;
         public static final byte CONSTANT_UTF8 = 1;
         public static final byte CONSTANT_INTEGER = 3;
@@ -164,11 +167,11 @@ public class ClassMethodTable {
     }
 
     @SuppressWarnings("UnusedDeclaration")
-    private static class CONSTANT_METHODREF_Info extends Const {
+    private static class ConstantMethodrefInfo extends Const {
         private final int class_index;
         private final int name_and_type_index;
 
-        private CONSTANT_METHODREF_Info(byte tag, int class_index, int name_and_type_index) {
+        private ConstantMethodrefInfo(byte tag, int class_index, int name_and_type_index) {
             super(tag);
             this.class_index = class_index;
             this.name_and_type_index = name_and_type_index;
@@ -328,7 +331,7 @@ public class ClassMethodTable {
 
             switch (tag) {
                 case CCIC.CONSTANT_CLASS: {
-                    /*  c[i] = new Constant_Class_Info(tag, data.readUnsignedShort()); */
+                    ///*  c[i] = new Constant_Class_Info(tag, data.readUnsignedShort()); */
                     data.readUnsignedShort();
                     break;
                 }
@@ -343,7 +346,7 @@ public class ClassMethodTable {
                 }
 
                 case CCIC.CONSTANT_METHODREF: {
-                    c[i] = new CONSTANT_METHODREF_Info(tag, data.readUnsignedShort(), data.readUnsignedShort());
+                    c[i] = new ConstantMethodrefInfo(tag, data.readUnsignedShort(), data.readUnsignedShort());
                     /* u2 class_index; u2 name_and_type_index */
                     break;
                 }

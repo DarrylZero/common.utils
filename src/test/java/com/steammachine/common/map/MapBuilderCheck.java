@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MapBuilderCheck {
@@ -42,14 +43,14 @@ class MapBuilderCheck {
     void of30() {
         Map<String, Integer> expected = new HashMap<>();
         expected.put("11", 11);
-        Assertions.assertEquals(expected, MapBuilder.<String, Integer>of().put("11", 11).build());
+        assertEquals(expected, MapBuilder.<String, Integer>of().put("11", 11).build());
     }
 
     @Test
     void of40() {
         Map<String, Integer> expected = new LinkedHashMap<>();
         expected.put("11", 11);
-        Assertions.assertEquals(expected, MapBuilder.<String, Integer>of(LinkedHashMap::new).put("11", 11).build());
+        assertEquals(expected, MapBuilder.<String, Integer>of(LinkedHashMap::new).put("11", 11).build());
     }
 
 

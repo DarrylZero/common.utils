@@ -314,7 +314,7 @@ class CommonUtilsCheck {
 
     @Test
     void allThreadsAreDone3() throws Throwable {
-        Assertions.assertTimeoutPreemptively(Duration.of(1000, ChronoUnit.MILLIS), () -> {
+        assertTimeoutPreemptively(Duration.of(1000, ChronoUnit.MILLIS), () -> {
             Thread[] threads = {new Thread(), new Thread()};
             for (Thread thread : threads) {
                 thread.start();
@@ -331,7 +331,7 @@ class CommonUtilsCheck {
 
     @Test
     void allThreadsAreDone4() throws Throwable {
-        Assertions.assertTimeoutPreemptively(Duration.of(5000, ChronoUnit.MILLIS), () -> {
+        assertTimeoutPreemptively(Duration.of(5000, ChronoUnit.MILLIS), () -> {
             Runnable target = () -> {
                 try {
                     Thread.sleep(500L);
