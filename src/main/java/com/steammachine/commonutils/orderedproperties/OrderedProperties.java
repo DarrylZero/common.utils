@@ -130,14 +130,14 @@ public class OrderedProperties {
     private int currentPrefix;
 
 
-    public void load(InputStream stream) throws IOException {
+    public void load(InputStream stream) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         reader.lines().peek(Objects::requireNonNull).
                 map(OrderedProperties::parseValue).
                 forEachOrdered(v -> properties.put(newKey(v.itemType, v.key), v));
     }
 
-    public void store(OutputStream stream, String comment) throws IOException {
+    public void store(OutputStream stream) throws IOException {
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stream));
 
         properties.entrySet().stream().map(Map.Entry::getValue).map(OrderedProperties::getLine).
@@ -292,9 +292,9 @@ public class OrderedProperties {
     private Key newKey(ItemType itemType, String id) {
         switch (itemType) {
             case NOT_FILLED:
-            case COMMENT: {
+            case COMMENT:
                 return uniqueId(itemType);
-            }
+
 
             case VALUE:
                 return new Key(itemType, id);

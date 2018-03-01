@@ -48,29 +48,11 @@ class OrderedPropertiesCheck {
 
         String fileToWrite = CommonUtils.getAbsoluteResourcePath(getClass(), "res/" + new SimpleDateFormat("hh_mm_ss").format(new Date()) + ".properties");
         try (OutputStream stream = new FileOutputStream(fileToWrite)) {
-            properties.store(stream, null);
+            properties.store(stream);
             stream.flush();
         }
 
         properties.getProperty("");
-    }
-
-    @Disabled
-    @TestFactory
-    @Tag("DebugRun")
-    Stream<DynamicTest> parseValue10() throws IOException {
-        return Stream.of(
-                comment("normal execution"),
-                comment("empty strings"),
-                normal("empty element1", "", new OrderedProperties.Item(COMMENT, "", null, null)),
-                comment("commented values"),
-                normal("Comment10", "# a comment", new OrderedProperties.Item(COMMENT, "# a comment", null, null)).disable(),
-                normal("Comment20", "   # a comment", new OrderedProperties.Item(COMMENT, "   # a comment", null, null)).disable(),
-                comment("commented values"),
-                normal("properties10", "prop6=       prop6", new OrderedProperties.Item(COMMENT, "%s=       %s", "prop6", "prop6")),
-                comment("")
-        ).filter(StringPairParam::isEnabled).
-                map(param -> DynamicTest.dynamicTest(param.getName(), () -> checkParse(param)));
     }
 
     /* ---------------------------------------------------- toProperties ----------------------------------------------- */
