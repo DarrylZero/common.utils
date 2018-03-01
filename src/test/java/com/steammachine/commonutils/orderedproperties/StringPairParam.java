@@ -1,4 +1,4 @@
-package com.steammachine.commonutils.properties.order;
+package com.steammachine.commonutils.orderedproperties;
 
 public class StringPairParam {
 
@@ -37,7 +37,7 @@ public class StringPairParam {
     }
 
     public static StringPairParam comment(String comment) {
-        return new StringPairParam(false, null, null, null, null);
+        return DISABLED;
     }
 
 
