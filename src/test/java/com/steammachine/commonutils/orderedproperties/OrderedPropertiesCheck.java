@@ -11,11 +11,8 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-import java.util.stream.Stream;
 
 import static com.steammachine.commonutils.orderedproperties.OrderedProperties.ItemType.COMMENT;
-import static com.steammachine.commonutils.orderedproperties.StringPairParam.comment;
-import static com.steammachine.commonutils.orderedproperties.StringPairParam.normal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OrderedPropertiesCheck {
@@ -74,16 +71,16 @@ class OrderedPropertiesCheck {
         Assertions.assertEquals(properties, properties2);
     }
 
-    /* ------------------------------------------------ setPoperty ---------------------------------------------------*/
+    /* ------------------------------------------------ setProperty ---------------------------------------------------*/
 
     @Test
     void setPoperty10() throws IOException {
         OrderedProperties properties = new OrderedProperties();
-        properties.setPoperty("s", "2");
+        properties.setProperty("s", "2");
         Assertions.assertEquals("2", properties.getProperty("s"));
-        properties.setPoperty("s", "3");
+        properties.setProperty("s", "3");
         Assertions.assertEquals("3", properties.getProperty("s"));
-        properties.setPoperty("s", null);
+        properties.setProperty("s", null);
         Assertions.assertEquals(null, properties.getProperty("s"));
     }
 

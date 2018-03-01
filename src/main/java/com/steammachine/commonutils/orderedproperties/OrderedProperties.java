@@ -153,7 +153,7 @@ public class OrderedProperties {
         currentPrefix = 0;
     }
 
-    public void setPoperty(String key, String value) {
+    public void setProperty(String key, String value) {
         Key keyy = new Key(ItemType.VALUE, key);
         properties.computeIfAbsent(keyy, key1 -> Item.value("%s=%s", key1.id, null)).value = value;
     }
