@@ -24,23 +24,23 @@ public class MethodUtilsCheck {
     public void levelGetLevel() throws NoSuchMethodException {
         Class<?> cls = ClassWithMethods.class;
         Assert.assertEquals(
-                MethodUtils.getLevel(cls.getDeclaredMethod("privateMethod").getModifiers()),
-                MethodUtils.Level.PRIVATE
+                MethodUtils.Level.PRIVATE,
+                MethodUtils.getLevel(cls.getDeclaredMethod("privateMethod").getModifiers())
         );
 
         Assert.assertEquals(
-                MethodUtils.getLevel(cls.getDeclaredMethod("protectedMethod").getModifiers()),
-                MethodUtils.Level.PROTECTED
+                MethodUtils.Level.PROTECTED,
+                MethodUtils.getLevel(cls.getDeclaredMethod("protectedMethod").getModifiers())
         );
 
         Assert.assertEquals(
-                MethodUtils.getLevel(cls.getDeclaredMethod("defaultMethod").getModifiers()),
-                MethodUtils.Level.DEFAULT
+                MethodUtils.Level.DEFAULT,
+                MethodUtils.getLevel(cls.getDeclaredMethod("defaultMethod").getModifiers())
         );
 
         Assert.assertEquals(
-                MethodUtils.getLevel(cls.getDeclaredMethod("publicMethod").getModifiers()),
-                MethodUtils.Level.PUBLIC
+                MethodUtils.Level.PUBLIC,
+                MethodUtils.getLevel(cls.getDeclaredMethod("publicMethod").getModifiers())
         );
     }
 
