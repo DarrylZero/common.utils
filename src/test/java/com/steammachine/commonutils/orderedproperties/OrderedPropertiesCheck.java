@@ -7,6 +7,9 @@ import org.junit.jupiter.api.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.stream.Stream;
 
@@ -19,26 +22,18 @@ class OrderedPropertiesCheck {
 
     @Test
     void testNameIntegrity() {
-        assertEquals("com.steammachine.commonutils.properties.order.OrderedProperties",
+        assertEquals("com.steammachine.commonutils.orderedproperties.OrderedProperties",
                 OrderedProperties.class.getName());
     }
 
     @Tag("DebugRun")
     @Test
     void run10() throws IOException {
-
-
         Properties properties = new Properties();
         try (InputStream stream = ResourceUtils.loadResourceByRelativePath(getClass(), "res/resource_properties.properties")) {
             properties.load(stream);
         }
-        try (InputStream stream = ResourceUtils.loadResourceByRelativePath(getClass(), "res/resource_properties2.properties")) {
-            properties.load(stream);
-        }
-
-        try (FileOutputStream stream = new FileOutputStream(CommonUtils.getAbsoluteResourcePath(getClass(), "res/resource_properties.properties"))) {
-            properties.store(stream, null);
-        }
+        properties.getProperty("");
 
     }
 
@@ -50,14 +45,14 @@ class OrderedPropertiesCheck {
         try (InputStream stream = ResourceUtils.loadResourceByRelativePath(getClass(), "res/resource_properties.properties")) {
             properties.load(stream);
         }
-        try (InputStream stream = ResourceUtils.loadResourceByRelativePath(getClass(), "res/resource_properties2.properties")) {
-            properties.load(stream);
-        }
 
-        try (FileOutputStream stream = new FileOutputStream(CommonUtils.getAbsoluteResourcePath(getClass(), "res/resource_properties.properties"))) {
+        String fileToWrite = CommonUtils.getAbsoluteResourcePath(getClass(), "res/" + new SimpleDateFormat("hh_mm_ss").format(new Date()) + ".properties");
+        try (OutputStream stream = new FileOutputStream(fileToWrite)) {
             properties.store(stream, null);
+            stream.flush();
         }
 
+        properties.getProperty("");
     }
 
     @Disabled
@@ -78,29 +73,61 @@ class OrderedPropertiesCheck {
                 map(param -> DynamicTest.dynamicTest(param.getName(), () -> checkParse(param)));
     }
 
+    /* ---------------------------------------------------- toProperties ----------------------------------------------- */
+
+    @Test
+    void toProperties10() throws IOException {
+        Properties properties;
+        try (InputStream stream = ResourceUtils.loadResourceByRelativePath(getClass(), "res/resource_properties.properties")) {
+            OrderedProperties p = new OrderedProperties();
+            p.load(stream);
+            properties = p.toProperties();
+        }
+
+        Properties properties2 = new Properties();
+        try (InputStream stream = ResourceUtils.loadResourceByRelativePath(getClass(), "res/resource_properties.properties")) {
+            properties2.load(stream);
+        }
+
+        Assertions.assertEquals(properties, properties2);
+    }
+
+    /* ------------------------------------------------ setPoperty ---------------------------------------------------*/
+
+    @Test
+    void setPoperty10() throws IOException {
+        OrderedProperties properties = new OrderedProperties();
+        properties.setPoperty("s", "2");
+        Assertions.assertEquals("2", properties.getProperty("s"));
+        properties.setPoperty("s", "3");
+        Assertions.assertEquals("3", properties.getProperty("s"));
+        properties.setPoperty("s", null);
+        Assertions.assertEquals(null, properties.getProperty("s"));
+    }
+
     /* ---------------------------------------------------- parseValue ----------------------------------------------- */
 
     @Test
     void parseValueEmptyString10() {
-        assertEquals(new OrderedProperties.Item(OrderedProperties.ItemType.NOT_FILLED, "", null, null),
+        assertEquals(new OrderedProperties.Item(OrderedProperties.ItemType.NOT_FILLED, "", "", ""),
                 OrderedProperties.parseValue(""));
     }
 
     @Test
     void parseValueEmptyString20() {
-        assertEquals(new OrderedProperties.Item(OrderedProperties.ItemType.NOT_FILLED, "     ", null, null),
+        assertEquals(new OrderedProperties.Item(OrderedProperties.ItemType.NOT_FILLED, "     ", "", ""),
                 OrderedProperties.parseValue("     "));
     }
 
     @Test
     void parseValueComment10() {
-        assertEquals(new OrderedProperties.Item(COMMENT, "# a comment", null, null),
+        assertEquals(new OrderedProperties.Item(COMMENT, "# a comment", "", ""),
                 OrderedProperties.parseValue("# a comment"));
     }
 
     @Test
     void parseValueComment20() {
-        assertEquals(new OrderedProperties.Item(COMMENT, "     # a comment", null, null),
+        assertEquals(new OrderedProperties.Item(COMMENT, "     # a comment", "", ""),
                 OrderedProperties.parseValue("     # a comment"));
     }
 
@@ -136,14 +163,38 @@ class OrderedPropertiesCheck {
 
     @Test
     void parseValueNoEqualSign10() {
-        assertEquals(new OrderedProperties.Item(OrderedProperties.ItemType.VALUE, " %s   =       %s", "s", "# prop3"),
+        assertEquals(new OrderedProperties.Item(OrderedProperties.ItemType.VALUE, " %s %s", "s", "# prop3"),
                 OrderedProperties.parseValue(" s # prop3"));
     }
 
     @Test
     void parseValueNoEqualSign20() {
-        assertEquals(new OrderedProperties.Item(OrderedProperties.ItemType.VALUE, " %s   =       %s", "s", "# prop3=prop3"),
+        assertEquals(new OrderedProperties.Item(OrderedProperties.ItemType.VALUE, " %s %s", "s", "# prop3=prop3"),
                 OrderedProperties.parseValue(" s # prop3=prop3"));
+    }
+
+    @Test
+    void parseValueNoEqualSign30() {
+        assertEquals(new OrderedProperties.Item(OrderedProperties.ItemType.VALUE, "%s=%s", "11", "12   "),
+                OrderedProperties.parseValue("11=12   "));
+    }
+
+    @Test
+    void parseValueNoEqualSign40() {
+        assertEquals(new OrderedProperties.Item(OrderedProperties.ItemType.VALUE, " %s          %s", "ss", "# prop35=prop35"),
+                OrderedProperties.parseValue(" ss          # prop35=prop35"));
+    }
+
+    @Test
+    void parseValueOnlyKey10() {
+        assertEquals(new OrderedProperties.Item(OrderedProperties.ItemType.VALUE, "%s%s", "key", ""),
+                OrderedProperties.parseValue("key"));
+    }
+
+    @Test
+    void parseValueOnlyKey1s() {
+        assertEquals(new OrderedProperties.Item(OrderedProperties.ItemType.VALUE, "%s        %s", "pro3", "p12      =   pro  p12      "),
+                OrderedProperties.parseValue("pro3        p12      =   pro  p12      "));
     }
 
 
